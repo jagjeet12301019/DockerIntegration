@@ -44,3 +44,15 @@ docker system prune	        	:this will remove all stopped containers from Docke
 
 
 ## Next will be implementing Selenium Grid 
+
+From-  https://github.com/SeleniumHQ/docker-selenium/blob/trunk/docker-compose-v3.yml download or copy content of the file  	
+Read instruction in the file And -	save the file on system as:     docker-compose-v3.yml   
+Opne CMD- 	cd directory to file location  
+Run the Docker grid using compose as- 	docker-compose -f docker-compose-v3.yml up  
+Check Grid containers are configured-	open URL in browser and grid setup with 3 nodes should show:   http://localhost:4444/grid/console  
+Scale more chrome nodes--	docker-compose scale chrom=2    
+// one chrome node we already have created above from file and this command will make chrome node total to 2, by addgin one more
+docker images- 	command will show number images - which in this case should be 4, 3 for each browser and one for hub   
+docker ps-	should show at-least 4 containers : 4 for each node browser (as chrome image is scaled to 2) and 1 hub  
+Setup the test code file (e.g. GridDockerIntegrationTestNG) to point hub and when execution will be parallel from testNG it will allocate the available nodes in parallel way- for example in our code we setup 4 containers and we have four @Test methods. In testNG.xml we setup parallel execution on the basis of methods so each test case will execute parallely on respective Containers created in Docker Grid setup above 	
+
